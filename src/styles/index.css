@@ -1,21 +1,42 @@
 *{
-    font-family:'Georgia';
+    font-size: x-large;
+    font-family: 'Cormorant Garamond';
+    background-color: #fefae0;
 }
 
-body{
-margin-top: 100px;
+div{
+    text-align: center;
+    padding-top: 50px;
+   
 }
 
-ul{
-padding: 0;
-}
-
-ul li{
-    border: 1px solid grey;
+ul {
     list-style: none;
-    padding: 5px;
+    padding: 0;
 }
-.form-control{
+
+input{
     border: none;
-    width: 100%;
+    width: 50%;
+    text-align: center;
+    margin: 40px;
+}
+
+li{
+    text-align: left;
+    padding-left: 400px;
+}
+
+li:hover .eliminar{
+    visibility: visible;
+   }
+   
+.eliminar{
+       visibility: hidden;
+   }
+
+footer {
+    font-size: large;
+    padding-left: 400px;
+    text-align: left;
 }

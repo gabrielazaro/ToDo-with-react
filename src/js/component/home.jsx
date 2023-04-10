@@ -2,56 +2,43 @@ import React, { useState } from "react";
 
 //create your first component
 const Home = () => {
-  const [currentWord, setCurrentWord] = useState("");
+  const [input, setInput] = useState("");
   const [tareas, setTareas] = useState([]);
-  const eliminarTarea = (index) => {
-    const nuevasTareas = [...tareas];
-    nuevasTareas.splice(index, 1);
-    setTareas(nuevasTareas);
+  const handleAdd = () => {
+	const tareaSinEspacios = input.trim();
+	if (tareaSinEspacios !== "") {
+	  setTareas([...tareas, tareaSinEspacios]);
+	}
+	setInput("");
+  };
+  const handleDelete = (index) => {
+	const tareasRestantes = tareas.filter((tarea, i) => i !== index)
+	setTareas(tareasRestantes)
   };
 
   return (
-	<div className="container bg-light">
-	  <h1 className="d-flex justify-content-center">To Do's</h1>
-	  <ul className="list-group">
-		{tareas.map((tarea, index) => (
-		  <li key={index} className="list-group-item fs-5 rounded-0 d-flex justify-content-between">
-			{tarea}
-			<div className="d-flex justify-content-end">
-			  <button
-				type="button"
-				className="btn-close"
-				onClick={() => eliminarTarea(index)}
-				aria-label="Close"
-			  ></button>
-			</div>
-		  </li>
-		))}
-		<li className="list-group-item fs-5 rounded-0">
-		  <input
-			type="text"
-			className="form-control fs-3 mt-2 rounded-0"
-			onChange={(e) => setCurrentWord(e.target.value)}
-			onKeyUp={(e) => {
-				if (e.key === "Enter" && currentWord.trim() !== "") {
-				  setTareas([...tareas, currentWord]);
-				  setCurrentWord("");
-				}
-			  }}
-			value={currentWord}
-			id="word"
-			placeholder="What needs to be done?"
-		  />
-		</li>
-		{tareas.length === 0 && (
-		  <li className="list-group-item fs-4 text-center">
-			Wii you are free
-		  </li>
-		)}
-	  </ul>
-	</div>
+    <div className="container-fluid">
+      <h1>TO DO'S</h1>
+      <input
+        type="text"
+        value={input}
+        placeholder="What needs to be done?"
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleAdd();
+          }
+        }}
+      />
+      <ul>
+        {tareas.map((tarea, index) => (
+          <li key={index}> {tarea} <button type="button" className="eliminar btn-close" aria-label="Close" onClick={() => handleDelete(index)}></button></li>
+        ))}
+      </ul>
+	  <footer>{tareas.length === 0 ? '' : `${tareas.length} items left`}</footer>
+    </div>
   );
-  
 };
 
 export default Home;
+
